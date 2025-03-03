@@ -206,6 +206,22 @@ h3 {
     color: var(--text-light);
 }
 
+/* Responsive Design for Vacancies Section */
+@media (max-width: 768px) {
+    .vacancies {
+        padding: 1rem;
+    }
+
+    .vacancies-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .vacancy-card {
+        padding: 1rem;
+    }
+}
+
 /* Language Switcher */
 .language-switcher {
     position: relative;
@@ -506,7 +522,8 @@ h3 {
 .team-photo {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
+    border-radius: 15px; /* 15px border radius */
+    border: 0.5px solid gray; /* 0.5px solid gray border */
     object-fit: cover;
     margin-bottom: 1rem;
     filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
@@ -813,4 +830,4 @@ h3 {
 
 .icon-back {
     background: linear-gradient(135deg, #78909c20, #78909c40);
-} 
+}

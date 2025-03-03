@@ -60,7 +60,7 @@ const languages = {
         joinTeam: 'Join Our Team',
         ourTeam: 'Our Team',
         getInTouch: 'Get in Touch',
-        allRightsReserved: 'All rights reserved'
+        allRightsReserved: ' '
     },
     ru: {
         services: `${ICONS.services} Услуги`,
@@ -85,7 +85,7 @@ const languages = {
         joinTeam: 'Присоединяйтесь к нам',
         ourTeam: 'Наша команда',
         getInTouch: 'Свяжитесь с нами',
-        allRightsReserved: 'Все права защищены'
+        allRightsReserved:  ''
     },
     uz: {
         services: `${ICONS.services} Xizmatlar`,
@@ -93,8 +93,8 @@ const languages = {
         vacancies: `${ICONS.vacancies} Vakansiyalar`,
         contact: `${ICONS.contact} Aloqa`,
         heroTitle: 'Biz muhim raqamli yechimlarni yaratamiz',
-        heroSubtitle: 'Gʻoyalarni ajoyib yechimlarga aylantiramiz',
-        ctaButton: `${ICONS.rocket} Keling, birgalikda ajoyib loyiha yaratamiz!`,
+        heroSubtitle: 'Tez Kunda!',
+        ctaButton: `${ICONS.rocket} Biz bilan ishlang!`,
         viewProject: 'Loyihani koʻrish',
         applyNow: 'Ariza topshirish',
         requirements: 'Talablar:',
@@ -110,7 +110,7 @@ const languages = {
         joinTeam: 'Jamoaga qoʻshiling',
         ourTeam: 'Bizning jamoa',
         getInTouch: 'Bogʻlanish',
-        allRightsReserved: 'Barcha huquqlar himoyalangan'
+        allRightsReserved: ' '
     }
 };
 
