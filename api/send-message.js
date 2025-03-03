@@ -1,60 +1,52 @@
-const fetch = require('node-fetch');
+import { Telegraf } from 'telegraf';
 
-// Telegram bot uchun serverless funksiya
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+// Telegram bot tokenini o'rnating
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-module.exports = async (req, res) => {
-    // CORS headers
+export default async function handler(req, res) {
+    // CORS headerlarini qo'shamiz
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
 
-    // Handle OPTIONS request
+    // OPTIONS so'rovlari uchun
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
     }
 
-    // Only allow POST
+    // Faqat POST so'rovlarini qabul qilamiz
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
     try {
-        const { name, email, message } = req.body;
+        const { name, contact, message } = req.body;
 
-        if (!name || !email || !message) {
+        // Ma'lumotlarni tekshirish
+        if (!name || !contact || !message) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const text = `New message from website:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
-        
-        const telegramResponse = await fetch(
-            `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: process.env.TELEGRAM_CHAT_ID,
-                    text: text,
-                    parse_mode: 'HTML'
-                }),
-            }
-        );
+        // Telegram xabarini tayyorlash
+        const telegramMessage = `
+🔔 Yangi xabar:
+👤 Ism: ${name}
+📞 Kontakt: ${contact}
+💬 Xabar: ${message}
+        `;
 
-        const telegramData = await telegramResponse.json();
+        // Telegram botga xabar yuborish
+        await bot.telegram.sendMessage(CHAT_ID, telegramMessage);
 
-        if (!telegramResponse.ok) {
-            throw new Error(telegramData.description || 'Failed to send message to Telegram');
-        }
-
-        res.status(200).json({ success: true });
+        return res.status(200).json({ success: true });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ error: 'Failed to send message' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
-}; 
+} 

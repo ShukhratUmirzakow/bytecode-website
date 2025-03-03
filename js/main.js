@@ -1,7 +1,7 @@
 // ============= Konstantalar =============
 const SCROLL_THRESHOLD = 300;
 const ANIMATION_THRESHOLD = 0.1;
-const API_URL = 'https://bytecodeteam.vercel.app/api/send-message'; // Vercel URL manzili
+const API_URL = 'https://bytecodeteam-yfw3dy5vi-justinabguy7-gmailcoms-projects.vercel.app/api/send-message'; // Vercel URL manzili
 
 // Ikonka HTML'lari
 const ICONS = {
