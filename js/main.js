@@ -1,7 +1,7 @@
 // ============= Konstantalar =============
 const SCROLL_THRESHOLD = 300;
 const ANIMATION_THRESHOLD = 0.1;
-const API_URL = 'https://your-vercel-app.vercel.app/api/send-message'; // Vercel deploy qilgandan keyin o'zgartiring
+const API_URL = 'https://bytecodeteam.vercel.app/api/send-message'; // Vercel URL manzili
 
 // Ikonka HTML'lari
 const ICONS = {
