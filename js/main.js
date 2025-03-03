@@ -305,17 +305,20 @@ async function sendTelegramMessage(data) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                name: data.name,
+                contact: data.contact, // email o'rniga contact ishlatamiz
+                message: data.message
+            })
         });
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-        const result = await response.json();
-        return result.success;
+        return true;
     } catch (error) {
-        console.error('Error sending message:', error);
+        console.error('Error:', error);
         return false;
     }
 }
