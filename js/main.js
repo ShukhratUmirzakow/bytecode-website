@@ -300,6 +300,8 @@ function setupScrollAnimation() {
 // Telegram orqali xabar yuborish
 async function sendTelegramMessage(data) {
     try {
+        console.log('Sending message to Telegram:', data); // Yuborilayotgan ma'lumotlarni log qilish
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
@@ -307,18 +309,25 @@ async function sendTelegramMessage(data) {
             },
             body: JSON.stringify({
                 name: data.name,
-                contact: data.contact, // email o'rniga contact ishlatamiz
+                contact: data.contact,
                 message: data.message
             })
         });
 
+        console.log('Response status:', response.status); // Response statusini log qilish
+
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            const errorData = await response.text();
+            console.error('Server error:', errorData); // Server xatosini log qilish
+            throw new Error(`Network response was not ok: ${response.status} ${errorData}`);
         }
 
-        return true;
+        const result = await response.json();
+        console.log('Server response:', result); // Server javobini log qilish
+
+        return result.success || true;
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error sending message:', error);
         return false;
     }
 }
