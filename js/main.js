@@ -180,16 +180,35 @@ const vacancies = [
 // ============= Funksiyalar =============
 
 // Mobil menyu
-function toggleMobileMenu() {
+function toggleMobileMenu(e) {
+    e.stopPropagation();
     domElements.navLinks.classList.toggle('active');
     const isOpen = domElements.navLinks.classList.contains('active');
-    domElements.mobileMenuBtn.innerHTML = isOpen ? ICONS.close : ICONS.menu;
+    domElements.mobileMenuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    document.body.classList.toggle('menu-open', isOpen);
 }
 
-// Til menyusini ko'rsatish/yashirish
-function toggleLanguageDropdown(e) {
-    e.stopPropagation();
-    domElements.langDropdown.classList.toggle('active');
+// Til o'zgartirish
+function setupLanguageSwitcher() {
+    const langOptions = document.querySelectorAll('.lang-option');
+    const savedLang = localStorage.getItem('preferred_language') || 'en';
+    
+    // Joriy tilni belgilash
+    langOptions.forEach(option => {
+        const lang = option.getAttribute('data-lang');
+        if (lang === savedLang) {
+            option.classList.add('active');
+        }
+        
+        option.addEventListener('click', () => {
+            // Avvalgi aktivni o'chirish
+            langOptions.forEach(opt => opt.classList.remove('active'));
+            // Yangi aktivni qo'shish
+            option.classList.add('active');
+            // Tilni o'zgartirish
+            changeLanguage(lang);
+        });
+    });
 }
 
 // Til o'zgartirish
@@ -360,17 +379,6 @@ function setupEventListeners() {
     // Mobil menyu
     domElements.mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-    // Til o'zgartirish
-    domElements.currentLang.addEventListener('click', toggleLanguageDropdown);
-    
-    domElements.langDropdown.addEventListener('click', (e) => {
-        const langLink = e.target.closest('[data-lang]');
-        if (langLink) {
-            e.preventDefault();
-            changeLanguage(langLink.getAttribute('data-lang'));
-        }
-    });
-
     // Scroll hodisalari
     window.addEventListener('scroll', handleScroll);
 
@@ -384,14 +392,14 @@ function setupEventListeners() {
 
     // Tashqi click'larni tekshirish
     document.addEventListener('click', () => {
-        domElements.langDropdown.classList.remove('active');
         if (window.innerWidth <= 768) {
             domElements.navLinks.classList.remove('active');
             domElements.mobileMenuBtn.innerHTML = ICONS.menu;
+            document.body.classList.remove('menu-open');
         }
     });
 
-    // Menyu va til almashtirgich uchun click event'larni to'xtatish
+    // Menyu uchun click event'larni to'xtatish
     domElements.navLinks.addEventListener('click', (e) => {
         e.stopPropagation();
     });
@@ -403,17 +411,11 @@ function setupEventListeners() {
 
 // ============= Initialization =============
 function init() {
-    // Sahifa yuklanishi bilan bajariladigan funksiyalar
     setupEventListeners();
+    setupLanguageSwitcher();
     createPortfolioItems();
     createVacancies();
     setupScrollAnimation();
-
-    // Local Storage'dan tilni olish
-    const savedLang = localStorage.getItem('preferred_language');
-    if (savedLang) {
-        changeLanguage(savedLang);
-    }
 }
 
 // Sahifa yuklanganda ishga tushirish

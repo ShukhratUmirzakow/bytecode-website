@@ -75,7 +75,54 @@
     <section id="portfolio" class="portfolio">
         <h2 data-translate="ourWork">Our Work</h2>
         <div class="portfolio-grid">
-            <!-- Portfolio items will be added dynamically via JavaScript -->
+            <div class="portfolio-card">
+                <img src="assets/portfolio1.jpg" alt="E-commerce Platform" class="portfolio-image">
+                <div class="portfolio-content">
+                    <h3>E-commerce Platform</h3>
+                    <p>Online savdo platformasi</p>
+                    <div class="technologies">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                    </div>
+                    <a href="#" class="view-project">
+                        <div class="icon"><i class="fas fa-external-link-alt"></i></div>
+                        <span>Loyihani ko'rish</span>
+                    </a>
+                </div>
+            </div>
+            <div class="portfolio-card">
+                <img src="assets/portfolio2.jpg" alt="Mobile App" class="portfolio-image">
+                <div class="portfolio-content">
+                    <h3>Food Delivery App</h3>
+                    <p>Oziq-ovqat yetkazib berish ilovasi</p>
+                    <div class="technologies">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Google Maps</span>
+                    </div>
+                    <a href="#" class="view-project">
+                        <div class="icon"><i class="fas fa-external-link-alt"></i></div>
+                        <span>Loyihani ko'rish</span>
+                    </a>
+                </div>
+            </div>
+            <div class="portfolio-card">
+                <img src="assets/portfolio3.jpg" alt="AI Project" class="portfolio-image">
+                <div class="portfolio-content">
+                    <h3>AI Chat Assistant</h3>
+                    <p>Sun'iy intellekt asosidagi yordamchi</p>
+                    <div class="technologies">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">OpenAI</span>
+                    </div>
+                    <a href="#" class="view-project">
+                        <div class="icon"><i class="fas fa-external-link-alt"></i></div>
+                        <span>Loyihani ko'rish</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -85,15 +132,47 @@
         <div class="vacancies-grid">
             <div class="vacancy-card">
                 <h3>Frontend Developer</h3>
-                <h4>Requirements:</h4>
+                <h4>Talablar:</h4>
                 <ul>
-                    <li>3+ years of experience</li>
-                    <li>Strong JavaScript skills</li>
-                    <li>React/Vue.js expertise</li>
+                    <li>3+ yillik tajriba</li>
+                    <li>JavaScript, React/Vue.js</li>
+                    <li>HTML5, CSS3, SASS</li>
+                    <li>Responsive Design</li>
+                    <li>Git versiyalarni boshqarish</li>
                 </ul>
                 <a href="#contact" class="apply-btn">
                     <div class="icon icon-contact"><i class="fas fa-paper-plane"></i></div>
-                    <span data-translate="applyNow">Apply Now</span>
+                    <span data-translate="applyNow">Ariza topshirish</span>
+                </a>
+            </div>
+            <div class="vacancy-card">
+                <h3>Backend Developer</h3>
+                <h4>Talablar:</h4>
+                <ul>
+                    <li>2+ yillik tajriba</li>
+                    <li>Node.js, Express.js</li>
+                    <li>MongoDB, PostgreSQL</li>
+                    <li>RESTful API</li>
+                    <li>Microservices arxitekturasi</li>
+                </ul>
+                <a href="#contact" class="apply-btn">
+                    <div class="icon icon-contact"><i class="fas fa-paper-plane"></i></div>
+                    <span data-translate="applyNow">Ariza topshirish</span>
+                </a>
+            </div>
+            <div class="vacancy-card">
+                <h3>Mobile Developer</h3>
+                <h4>Talablar:</h4>
+                <ul>
+                    <li>2+ yillik tajriba</li>
+                    <li>Flutter/React Native</li>
+                    <li>iOS/Android Development</li>
+                    <li>State Management</li>
+                    <li>API Integration</li>
+                </ul>
+                <a href="#contact" class="apply-btn">
+                    <div class="icon icon-contact"><i class="fas fa-paper-plane"></i></div>
+                    <span data-translate="applyNow">Ariza topshirish</span>
                 </a>
             </div>
         </div>
@@ -113,17 +192,18 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <h2 data-translate="getInTouch">Get in Touch</h2>
         <div class="contact-container">
-            <form id="contact-form" class="contact-form">
-                <input type="text" name="name" data-translate-placeholder="namePlaceholder" placeholder="Your Name" required>
-                <input type="text" name="contact" data-translate-placeholder="contactPlaceholder" placeholder="Telegram or Phone Number" required>
-                <textarea name="message" data-translate-placeholder="messagePlaceholder" placeholder="Your Message" required></textarea>
-                <button type="submit" class="submit-btn" data-translate="sendMessage">
-                    <div class="icon icon-contact"><i class="fas fa-envelope"></i></div>
-                    Send Message
+            <h2>Get in Touch</h2>
+            <form id="contactForm" class="contact-form">
+                <input type="text" id="name" name="name" placeholder="Ismingiz" required>
+                <input type="text" id="contact" name="contact" placeholder="Telegram yoki telefon raqamingiz" required>
+                <textarea id="message" name="message" placeholder="Xabaringiz..." required></textarea>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>Xabar yuborish</span>
+                    <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
+            <div id="statusMessage" class="status-message"></div>
         </div>
     </section>
 
@@ -147,5 +227,56 @@
     </button>
     
     <script src="js/main.js"></script>
+    <script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById("name").value;
+        const contact = document.getElementById("contact").value;
+        const message = document.getElementById("message").value;
+        const chatId = "5650533023";
+        const botToken = "7402844983:AAGXys12NzlpZ8OWXRDIEZ6xOvX9yVH7MM8";
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        const text = `💬 Yangi Xabar!\n\n👤 Ism: ${name}\n📱 Telegram/Tel: ${contact}\n💭 Xabar: ${message}`;
+        const submitBtn = document.getElementById("submitBtn");
+        const statusMessage = document.getElementById("statusMessage");
+
+        // Disable submit button and show loading state
+        submitBtn.disabled = true;
+        statusMessage.className = "status-message loading visible";
+        statusMessage.innerText = "⏳ Xabaringiz yuborilmoqda...";
+
+        const formData = new FormData();
+        formData.append("chat_id", chatId);
+        formData.append("text", text);
+
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                statusMessage.className = "status-message success visible";
+                statusMessage.innerText = "✅ Xabar muvaffaqiyatli yuborildi!";
+                document.getElementById("contactForm").reset();
+            } else {
+                throw new Error(data.description || "Noma'lum xatolik");
+            }
+        })
+        .catch(error => {
+            statusMessage.className = "status-message error visible";
+            statusMessage.innerText = "❌ Xabar yuborishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.";
+            console.error("Xatolik:", error);
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            setTimeout(() => {
+                statusMessage.className = "status-message";
+            }, 5000);
+        });
+    });
+    </script>
 </body>
 </html> 
